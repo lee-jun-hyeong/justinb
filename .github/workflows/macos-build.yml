@@ -29,7 +29,7 @@ jobs:
         pyinstaller --onefile --windowed --add-data "KorRV.json:." justinb.py
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4   # 최신버전 사용
       with:
         name: justinb-mac
         path: dist/justinb
