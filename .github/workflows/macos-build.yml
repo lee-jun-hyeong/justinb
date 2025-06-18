@@ -1,0 +1,35 @@
+name: macOS Build
+
+on:
+  push:
+    branches: [ feature/mac-build ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+
+    - name: Build macOS executable
+      run: |
+        pyinstaller --onefile --windowed --add-data "KorRV.json:." justinb.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: justinb-mac
+        path: dist/justinb
