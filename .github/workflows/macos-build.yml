@@ -2,7 +2,7 @@ name: macOS Build
 
 on:
   push:
-    branches: [ feature/mac-build ]
+    branches: [ master, feature/mac-build ]
   pull_request:
     branches: [ master ]
 
