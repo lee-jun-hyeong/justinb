@@ -1,4 +1,4 @@
-name: macOS Build
+name: macOS Build with Icon
 
 on:
   push:
@@ -24,12 +24,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyinstaller
 
-    - name: Build macOS executable
+    - name: Build macOS executable with icon
       run: |
-        pyinstaller --onefile --windowed --add-data "KorRV.json:." justinb.py
+        pyinstaller justinb.spec
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4   # 최신버전 사용
+      uses: actions/upload-artifact@v4
       with:
         name: justinb-mac
         path: dist/justinb
