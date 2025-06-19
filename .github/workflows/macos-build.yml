@@ -1,4 +1,4 @@
-name: macOS Build with Icon
+name: macOS Build with App Bundle
 
 on:
   push:
@@ -24,12 +24,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyinstaller
 
-    - name: Build macOS executable with icon
+    - name: Build macOS .app bundle
       run: |
         pyinstaller justinb.spec
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: justinb-mac
-        path: dist/justinb
+        name: justinb-mac-app
+        path: dist/justinb.app
