@@ -6,7 +6,7 @@ a = Analysis(
     ['justinb.py'],
     pathex=[],
     binaries=[],
-    datas=[('KorRV.json', '.')],  # KorRV.json 포함
+    datas=[('KorRV.json', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -30,13 +30,13 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,  # 콘솔창 없음 (GUI 앱)
+    console=False,
     disable_windowed_traceback=False,
-    argv_emulation=False,
+    argv_emulation=True,         # macOS GUI 앱용 필수 옵션
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icon.icns'  # ✅ macOS용 아이콘
+    icon='icon.icns',            # .icns 아이콘 파일
 )
 
 coll = COLLECT(
@@ -47,5 +47,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='justinb'
+    name='justinb.app',          # .app 이름 지정!
 )
