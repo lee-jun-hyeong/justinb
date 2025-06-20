@@ -9,33 +9,33 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyinstaller
+    - name: Install dependencies
+      run: |
+        pip install -U pip
+        pip install pyinstaller python-pptx
 
-      - name: Build app
-        run: |
-          pyinstaller justinb.spec
+    - name: Build app
+      run: |
+        pyinstaller --windowed --onefile --name justinb_mac --add-data "KorRV.json:." justinb.py
 
-      - name: Zip the .app
-        run: |
-          cd dist
-          zip -r justinb-mac.zip justinb.app
+    - name: Zip the mac binary
+      run: |
+        cd dist
+        zip -r justinb-mac.zip justinb_mac
 
-      - name: Create GitHub Release and Upload Asset
-        uses: softprops/action-gh-release@v1
-        with:
-          name: justinb v1.0.0
-          tag_name: v1.0.0
-          files: dist/justinb-mac.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Create GitHub Release and Upload Asset
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Build ${{ github.run_number }}
+        tag_name: v${{ github.run_number }}
+        files: dist/justinb-mac.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
